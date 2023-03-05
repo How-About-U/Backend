@@ -1,7 +1,7 @@
 package com.backend.howaboutyou.domain;
 
 import com.backend.howaboutyou.domain.base.BaseTimeEntity;
-import com.backend.howaboutyou.dto.OpinRequestDto;
+import com.backend.howaboutyou.dto.opin.OpinRequestDto;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;

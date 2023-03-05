@@ -1,7 +1,7 @@
 package com.backend.howaboutyou.controller;
 
-import com.backend.howaboutyou.dto.TopicRequestDto;
-import com.backend.howaboutyou.dto.TopicResponseDto;
+import com.backend.howaboutyou.dto.topic.TopicRequestDto;
+import com.backend.howaboutyou.dto.topic.TopicResponseDto;
 import com.backend.howaboutyou.service.TopicService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,7 +14,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.time.LocalDate;
 
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
