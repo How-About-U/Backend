@@ -1,6 +1,7 @@
 package com.backend.howaboutyou.domain;
 
 import com.backend.howaboutyou.domain.base.BaseTimeEntity;
+import com.backend.howaboutyou.dto.OpinRequestDto;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -39,5 +40,14 @@ public class Opin extends BaseTimeEntity {
         this.topic = topic;
         this.vote = vote;
         this.content = content;
+    }
+
+    public static Opin toEntity(OpinRequestDto requestDto) {
+        return Opin.builder()
+                .member(requestDto.getMember())
+                .topic(requestDto.getTopic())
+                .vote(requestDto.getVote())
+                .content(requestDto.getContent())
+                .build();
     }
 }
