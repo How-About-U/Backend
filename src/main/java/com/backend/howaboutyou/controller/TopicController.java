@@ -1,6 +1,6 @@
 package com.backend.howaboutyou.controller;
 
-import com.backend.howaboutyou.dto.TopicRequestDto;
+import com.backend.howaboutyou.dto.topic.TopicRequestDto;
 import com.backend.howaboutyou.service.TopicService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

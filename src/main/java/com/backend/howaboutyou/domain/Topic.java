@@ -1,6 +1,6 @@
 package com.backend.howaboutyou.domain;
 
-import com.backend.howaboutyou.dto.TopicRequestDto;
+import com.backend.howaboutyou.dto.topic.TopicRequestDto;
 import com.backend.howaboutyou.domain.base.BaseTimeEntity;
 import lombok.*;
 
