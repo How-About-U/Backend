@@ -1,6 +1,6 @@
 package com.backend.howaboutyou.domain.constant;
 
-public enum Rating {
+public enum Grade {
     BRONZE,
     SILVER,
     GOLD,
