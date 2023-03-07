@@ -3,6 +3,7 @@ package com.backend.howaboutyou.repository;
 import com.backend.howaboutyou.domain.Member;
 import com.backend.howaboutyou.domain.Opin;
 import com.backend.howaboutyou.domain.Topic;
+import com.backend.howaboutyou.repository.opin.OpinRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
