@@ -1,7 +1,7 @@
 package com.backend.howaboutyou.domain;
 
 import com.backend.howaboutyou.domain.base.BaseTimeEntity;
-import com.backend.howaboutyou.domain.constant.Rating;
+import com.backend.howaboutyou.domain.constant.Grade;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -28,7 +28,7 @@ public class Member extends BaseTimeEntity {
 
     private String username;
 
-    private Rating rating;
+    private Grade grade;
 
     @Builder
     public Member(String email, String password, String username) {
@@ -36,6 +36,14 @@ public class Member extends BaseTimeEntity {
         this.password = password;
         this.username = username;
         // 브론즈 등급부터 시작.
-        this.rating = Rating.BRONZE;
+        this.grade = Grade.BRONZE;
+    }
+
+    /**
+     * 테스트 코드용 생성자
+     * @param username
+     */
+    public Member(String username) {
+        this.username = username;
     }
 }

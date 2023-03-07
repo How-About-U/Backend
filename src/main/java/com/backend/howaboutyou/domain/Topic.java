@@ -34,4 +34,12 @@ public class Topic extends BaseTimeEntity {
         return new Topic(requestDto.getTitle(), LocalDate.now());
     }
 
+    /**
+     * 테스트용 코드 생성자
+     * @param title
+     */
+    public Topic(String title) {
+        this.title = title;
+    }
+
 }
