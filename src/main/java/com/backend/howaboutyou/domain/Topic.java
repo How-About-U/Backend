@@ -1,6 +1,6 @@
 package com.backend.howaboutyou.domain;
 
-import com.backend.howaboutyou.dto.TopicRequestDto;
+import com.backend.howaboutyou.dto.topic.TopicRequestDto;
 import com.backend.howaboutyou.domain.base.BaseTimeEntity;
 import lombok.*;
 
@@ -32,6 +32,14 @@ public class Topic extends BaseTimeEntity {
 
     public static Topic toEntity(TopicRequestDto requestDto) {
         return new Topic(requestDto.getTitle(), LocalDate.now());
+    }
+
+    /**
+     * 테스트용 코드 생성자
+     * @param title
+     */
+    public Topic(String title) {
+        this.title = title;
     }
 
 }
