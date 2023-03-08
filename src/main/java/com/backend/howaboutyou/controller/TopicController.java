@@ -16,14 +16,14 @@ public class TopicController {
     private final TopicService topicService;
 
     @PostMapping("/save")
-    public ResponseEntity<?> saveTopic(@RequestBody TopicRequestDto topicRequestDto) {
-        log.info("TopicController.saveTopic()");
+    public ResponseEntity<?> topicSave(@RequestBody TopicRequestDto topicRequestDto) {
+        log.info("TopicController.topicSave");
         return ResponseEntity.ok().body(topicService.saveTopic(topicRequestDto));
     }
 
     @GetMapping("/get")
-    public ResponseEntity<?> getTopic() {
-        log.info("TopicController.getTopic()");
+    public ResponseEntity<?> topicGet() {
+        log.info("TopicController.get");
         return ResponseEntity.ok().body(topicService.getTodayTopic());
     }
 
