@@ -21,5 +21,9 @@ public class OpinService {
         return opinRepository.save(Opin.toEntity(requestDto)).getId();
     }
 
+    @Transactional(readOnly = true)
+    public List<OpinResponseDto> opinAllSearch(Boolean condition) {
+        return opinRepository.findAllOpin(condition);
+    }
 
 }
