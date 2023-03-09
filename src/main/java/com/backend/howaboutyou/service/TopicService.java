@@ -1,10 +1,9 @@
 package com.backend.howaboutyou.service;
 
-import com.backend.howaboutyou.exception.entity.ErrorCode;
-import com.backend.howaboutyou.dto.topic.TopicRequestDto;
-import com.backend.howaboutyou.dto.topic.TopicResponseDto;
 import com.backend.howaboutyou.domain.Topic;
+import com.backend.howaboutyou.dto.topic.TopicRequestDto;
 import com.backend.howaboutyou.exception.TopicAlreadyExistsException;
+import com.backend.howaboutyou.exception.entity.ErrorCode;
 import com.backend.howaboutyou.repository.TopicRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -30,12 +29,11 @@ public class TopicService {
         return topicRepository.save(Topic.toEntity(topicRequestDto)).getId();
     }
 
-    public TopicResponseDto getTodayTopic() {
+    public Topic getTodayTopic() {
         Topic findTodayTopic = topicRepository.findTopicByTopicDate(LocalDate.now()).orElseThrow(
                 () -> new EntityNotFoundException("해당 날짜의 Topic 은 존재하지 않습니다.")
         );
-
-        return new TopicResponseDto(findTodayTopic);
+        return findTodayTopic;
     }
 
 }

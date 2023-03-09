@@ -4,7 +4,6 @@ import com.backend.howaboutyou.domain.Topic;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 import java.time.LocalDate;
 

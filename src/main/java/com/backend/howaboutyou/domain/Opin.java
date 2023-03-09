@@ -1,7 +1,7 @@
 package com.backend.howaboutyou.domain;
 
 import com.backend.howaboutyou.domain.base.BaseTimeEntity;
-import com.backend.howaboutyou.dto.opin.OpinRequestDto;
+import com.backend.howaboutyou.dto.opin.OpinSaveDto;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -42,12 +42,12 @@ public class Opin extends BaseTimeEntity {
         this.content = content;
     }
 
-    public static Opin toEntity(OpinRequestDto requestDto) {
+    public static Opin toEntity(OpinSaveDto saveDto) {
         return Opin.builder()
-                .member(requestDto.getMember())
-                .topic(requestDto.getTopic())
-                .vote(requestDto.getVote())
-                .content(requestDto.getContent())
+                .vote(saveDto.getVote())
+                .content(saveDto.getContent())
+                .member(saveDto.getMember())
+                .topic(saveDto.getTopic())
                 .build();
     }
 }
