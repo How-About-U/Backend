@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Slf4j
@@ -28,40 +29,30 @@ public class MemberController {
     private final PasswordEncoder passwordEncoder;
     private final JwtProvider jwtProvider;
 
+    @PostMapping("/signup")
+    @Transactional
+    public ResponseEntity<?> memberSave(@RequestBody SignupRequestDto requestDto) {
+        return ResponseEntity.ok().body(memberService.save(requestDto));
+    }
+
     @GetMapping("/users")
     public ResponseEntity<Object> getMembers() {
         return ResponseEntity.ok().body(memberService.findAllMembers());
     }
 
-    @PostMapping("/signup")
-    public ResponseEntity<?> memberSave(@RequestBody SignupRequestDto requestDto) {
-        if (memberService.findMemberByEmail(requestDto.getEmail()).isPresent()) {
-            throw new EmailAlreadyExistsException(ErrorCode.EMAIL_ALREADY_EXISTS);
-        }
-        return ResponseEntity.ok().body(memberService.save(requestDto));
-    }
-
     @PostMapping("/login")
+    @Transactional
     public ResponseEntity<Object> Login(@RequestBody LoginRequestDto requestDto) {
-
-        Optional<Member> memberOption = memberService.findMemberByEmail(requestDto.getEmail());
-        if (memberOption.isEmpty()) {
-            throw new EmailNotExistsException(ErrorCode.EMAIL_NOT_EXISTS);
-        }
-
-        Member member = memberOption.get();
-        if (!passwordEncoder.matches(requestDto.getPassword(), member.getPassword())) {
-            throw new PasswordMismatchException(ErrorCode.PASSWORD_MISS_MATCH);
-        }
-
-        String token = jwtProvider.crateToken(member.getEmail());
+        Member member = memberService.findMemberByEmail(requestDto.getEmail());
+        memberService.comparePassword(requestDto.getPassword(), member.getPassword());
         LoginResponseDto responseDto = new LoginResponseDto(
                 member.getUsername(),
                 member.getEmail(),
-                token
+                jwtProvider.crateToken(member.getEmail())
         );
-
         return ResponseEntity.ok().body(responseDto);
     }
+
+
 
 }

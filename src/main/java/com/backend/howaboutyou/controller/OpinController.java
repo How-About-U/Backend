@@ -28,7 +28,7 @@ public class OpinController {
     @PostMapping("/save")
     public ResponseEntity<?> opinSave(@RequestBody OpinRequestDto requestDto) {
         // JWT -> 유저 정보 추출.
-        Member member = memberService.findMemberByEmail(jwtProvider.getPayload(requestDto.getToken())).get();
+        Member member = memberService.findMemberByEmail(jwtProvider.getPayload(requestDto.getToken()));
 
         // 임시로 토픽을 임의로 생성.
         Topic testTopic = new Topic("탕수육은 부먹? 아니면 찍먹?");
