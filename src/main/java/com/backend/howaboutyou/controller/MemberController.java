@@ -5,6 +5,10 @@ import com.backend.howaboutyou.domain.Member;
 import com.backend.howaboutyou.dto.member.LoginRequestDto;
 import com.backend.howaboutyou.dto.member.LoginResponseDto;
 import com.backend.howaboutyou.dto.member.SignupRequestDto;
+import com.backend.howaboutyou.exception.EmailAlreadyExistsException;
+import com.backend.howaboutyou.exception.EmailNotExistsException;
+import com.backend.howaboutyou.exception.PasswordMismatchException;
+import com.backend.howaboutyou.exception.entity.ErrorCode;
 import com.backend.howaboutyou.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,40 +35,33 @@ public class MemberController {
 
     @PostMapping("/signup")
     public ResponseEntity<?> memberSave(@RequestBody SignupRequestDto requestDto) {
-        try {
-            if (memberService.findMemberByEmail(requestDto.getEmail()).isPresent()) {
-                throw new Exception("이미 가입된 이메일입니다.");
-            }
-            return ResponseEntity.ok().body(memberService.save(requestDto));
-        } catch (Exception e) {
-            return ResponseEntity.ok().body(e.getMessage());
+        if (memberService.findMemberByEmail(requestDto.getEmail()).isPresent()) {
+            throw new EmailAlreadyExistsException(ErrorCode.EMAIL_ALREADY_EXISTS);
         }
+        return ResponseEntity.ok().body(memberService.save(requestDto));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Object> Login(@RequestBody LoginRequestDto requestDto) throws Exception {
-        try {
-            Optional<Member> memberOption = memberService.findMemberByEmail(requestDto.getEmail());
-            if (memberOption.isEmpty()) {
-                throw new Exception("가입되지 않은 이메일입니다.");
-            }
+    public ResponseEntity<Object> Login(@RequestBody LoginRequestDto requestDto) {
 
-            Member member = memberOption.get();
-            if (!passwordEncoder.matches(requestDto.getPassword(), member.getPassword())) {
-                throw new Exception("잘못된 비밀번호입니다.");
-            }
-
-            String token = jwtProvider.crateToken(member.getEmail());
-            LoginResponseDto responseDto = new LoginResponseDto(
-                    member.getUsername(),
-                    member.getEmail(),
-                    token
-            );
-
-            return ResponseEntity.ok().body(responseDto);
-        } catch (Exception e) {
-            return ResponseEntity.ok().body(e.getMessage());
+        Optional<Member> memberOption = memberService.findMemberByEmail(requestDto.getEmail());
+        if (memberOption.isEmpty()) {
+            throw new EmailNotExistsException(ErrorCode.EMAIL_NOT_EXISTS);
         }
+
+        Member member = memberOption.get();
+        if (!passwordEncoder.matches(requestDto.getPassword(), member.getPassword())) {
+            throw new PasswordMismatchException(ErrorCode.PASSWORD_MISS_MATCH);
+        }
+
+        String token = jwtProvider.crateToken(member.getEmail());
+        LoginResponseDto responseDto = new LoginResponseDto(
+                member.getUsername(),
+                member.getEmail(),
+                token
+        );
+
+        return ResponseEntity.ok().body(responseDto);
     }
 
 }

@@ -22,7 +22,6 @@ public class TopicService {
 
     @Transactional
     public Long saveTopic(TopicRequestDto topicRequestDto) throws EntityExistsException {
-
         if (topicRepository.existsByTopicDate(LocalDate.now()))
             throw new TopicAlreadyExistsException(ErrorCode.TODAY_TOPIC_ALREADY);
 
