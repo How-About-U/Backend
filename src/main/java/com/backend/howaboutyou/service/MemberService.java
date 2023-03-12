@@ -24,7 +24,7 @@ public class MemberService {
 
     /**
      * 회원가입
-     * @param requestDto
+     * @param requestDto 클라이언트에서 요청한 멤버 가입정보
      */
     public Long save(SignupRequestDto requestDto) {
         if (memberRepository.findByEmail(requestDto.getEmail()).isPresent()) {
@@ -40,7 +40,7 @@ public class MemberService {
 
     /**
      * 이메일을 통해서 유저 찾기.
-     * @param email
+     * @param email 클라이언트에서 요청한 이메일
      */
     public Member findMemberByEmail(String email) {
         Optional<Member> member = memberRepository.findByEmail(email);
@@ -57,8 +57,10 @@ public class MemberService {
         return memberRepository.findAll();
     }
 
-    /*
+    /**
     * 비밀번호 비교하기.
+     * @param requestPassword 클라이언트에서 요청한 비밀번호
+     * @param hashedPassword 데이터베이스에 저장된 비밀번호
     */
     public void comparePassword(String requestPassword, String hashedPassword) {
         if (!passwordEncoder.matches(requestPassword, hashedPassword)) {
