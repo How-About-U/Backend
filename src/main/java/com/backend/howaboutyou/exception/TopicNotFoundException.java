@@ -4,10 +4,10 @@ import com.backend.howaboutyou.constant.StatusCode;
 import lombok.Getter;
 
 @Getter
-public class TopicAlreadyExistsException extends RuntimeException {
-    private final StatusCode statusCode;
+public class TopicNotFoundException extends RuntimeException {
+    StatusCode statusCode;
 
-    public TopicAlreadyExistsException(StatusCode statusCode) {
+    public TopicNotFoundException(StatusCode statusCode) {
         this.statusCode = statusCode;
     }
 }

@@ -1,11 +1,8 @@
-package com.backend.howaboutyou.exception;
+package com.backend.howaboutyou.advice;
 
-import com.backend.howaboutyou.exception.EmailAlreadyExistsException;
-import com.backend.howaboutyou.exception.EmailNotExistsException;
-import com.backend.howaboutyou.exception.PasswordMismatchException;
-import com.backend.howaboutyou.exception.TopicAlreadyExistsException;
+import com.backend.howaboutyou.advice.ErrorResponse;
+import com.backend.howaboutyou.exception.*;
 import com.backend.howaboutyou.exception.entity.ErrorCode;
-import com.backend.howaboutyou.exception.entity.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,13 +19,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         log.error("Exception: " + e);
         ErrorResponse response = new ErrorResponse(ErrorCode.INTERNAL_SERVER_ERROR);
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-
-    @ExceptionHandler(TopicAlreadyExistsException.class)
-    public ResponseEntity<ErrorResponse> handleTopicAlreadyExistsException(TopicAlreadyExistsException e) {
-        log.error("handleTopicAlreadyExistsException: ", e);
-        ErrorResponse response = new ErrorResponse(e.getErrorCode());
-        return new ResponseEntity<>(response, e.getErrorCode().getStatus());
     }
 
     @ExceptionHandler(EmailAlreadyExistsException.class)
