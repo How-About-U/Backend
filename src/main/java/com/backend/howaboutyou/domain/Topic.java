@@ -4,10 +4,7 @@ import com.backend.howaboutyou.dto.topic.TopicRequestDto;
 import com.backend.howaboutyou.domain.base.BaseTimeEntity;
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
@@ -16,7 +13,7 @@ import java.time.LocalDate;
 public class Topic extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "topic_id")
     private Long id;
 
@@ -32,6 +29,11 @@ public class Topic extends BaseTimeEntity {
 
     public static Topic toEntity(TopicRequestDto requestDto) {
         return new Topic(requestDto.getTitle(), LocalDate.now());
+    }
+
+    public String update(TopicRequestDto requestDto) {
+        this.title = requestDto.getTitle();
+        return title;
     }
 
     /**

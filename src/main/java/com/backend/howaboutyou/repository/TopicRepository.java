@@ -7,8 +7,6 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 public interface TopicRepository extends JpaRepository<Topic, Long> {
-
     Optional<Topic> findTopicByTopicDate(LocalDate topicDate);
-
-    boolean existsByTopicDate(LocalDate topicDate);
+    Optional<Topic> findByTopicDate(LocalDate topicDate);
 }

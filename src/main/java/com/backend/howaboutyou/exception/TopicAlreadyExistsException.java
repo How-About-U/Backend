@@ -1,13 +1,13 @@
 package com.backend.howaboutyou.exception;
 
-import com.backend.howaboutyou.exception.entity.ErrorCode;
+import com.backend.howaboutyou.constant.StatusCode;
 import lombok.Getter;
 
 @Getter
 public class TopicAlreadyExistsException extends RuntimeException {
-    ErrorCode errorCode;
+    StatusCode statusCode;
 
-    public TopicAlreadyExistsException(ErrorCode errorCode) {
-        this.errorCode = errorCode;
+    public TopicAlreadyExistsException(StatusCode statusCode) {
+        this.statusCode = statusCode;
     }
 }
