@@ -4,9 +4,10 @@ import com.backend.howaboutyou.exception.entity.ErrorCode;
 import lombok.Getter;
 
 @Getter
-public class TopicAlreadyExistsException extends RuntimeException {
+public class EmailAlreadyExistsException extends RuntimeException{
     private final ErrorCode errorCode;
-    public TopicAlreadyExistsException(ErrorCode errorCode) {
+    public EmailAlreadyExistsException(ErrorCode errorCode) {
         this.errorCode = errorCode;
     }
+
 }

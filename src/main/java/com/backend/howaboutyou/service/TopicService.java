@@ -21,8 +21,7 @@ public class TopicService {
     private final TopicRepository topicRepository;
 
     @Transactional
-    public Long saveTopic(TopicRequestDto topicRequestDto) throws EntityExistsException {
-
+    public Long saveTopic(TopicRequestDto topicRequestDto){
         if (topicRepository.existsByTopicDate(LocalDate.now()))
             throw new TopicAlreadyExistsException(ErrorCode.TODAY_TOPIC_ALREADY);
 
@@ -30,10 +29,9 @@ public class TopicService {
     }
 
     public Topic getTodayTopic() {
-        Topic findTodayTopic = topicRepository.findTopicByTopicDate(LocalDate.now()).orElseThrow(
+        return topicRepository.findTopicByTopicDate(LocalDate.now()).orElseThrow(
                 () -> new EntityNotFoundException("해당 날짜의 Topic 은 존재하지 않습니다.")
         );
-        return findTodayTopic;
     }
 
 }

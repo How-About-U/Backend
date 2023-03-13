@@ -1,24 +1,19 @@
 package com.backend.howaboutyou.exception.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 @Data
-@Builder
+@AllArgsConstructor
 public class ErrorResponse {
-    private int status;
-    private String code;
+    private HttpStatus status;
     private String message;
 
-    public static ResponseEntity<ErrorResponse> toResponseEntity(ErrorCode e){
-        return ResponseEntity
-                .status(e.getStatus())
-                .body(ErrorResponse.builder()
-                        .status(e.getStatus().value())
-                        .code(e.name())
-                        .message(e.getMessage())
-                        .build()
-                );
+    public ErrorResponse(ErrorCode errorCode) {
+        this.status = errorCode.getStatus();
+        this.message = errorCode.getMessage();
     }
 }
