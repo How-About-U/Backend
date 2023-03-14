@@ -29,13 +29,16 @@ public class OpinController {
 
     @PostMapping("/save")
     public ResponseEntity<?> opinSave(@RequestBody OpinRequestDto requestDto) {
-        // JWT -> 유저 정보 추출.
+        // 이후에 헤더에서 가져오는 걸로 변경 예정
+        String token = requestDto.getToken();
+
+        // JWT -> 유저 정보 추출, Access Token 검증
+        // 토큰이 잘못되었을 때 발생할 Exception 필요.
         Member member = memberService.findMemberByEmail(
-                jwtProvider.getUserEmail(requestDto.getToken())
+                jwtProvider.getUserEmail(token)
         );
 
         String newAccessToken = jwtService.getNewAccessToken(member.getEmail());
-
         // 만약 null이면 새로 로그인 필요
         if (newAccessToken == null) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("로그인이 필요합니다.");
@@ -49,9 +52,15 @@ public class OpinController {
                 requestDto.getVote(),
                 requestDto.getContent(),
                 member,
-                testTopic
+                testTopic,
+                newAccessToken
         );
         return ResponseEntity.ok().body(opinService.save(saveDto));
+    }
+
+    @PostMapping("/update")
+    public ResponseEntity<Object> opinUpdate(@RequestBody OpinRequestDto requestDto) {
+        return ResponseEntity.ok().body(opinService.update(requestDto));
     }
 
     @GetMapping("/list")
