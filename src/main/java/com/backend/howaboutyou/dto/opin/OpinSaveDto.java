@@ -14,4 +14,5 @@ public class OpinSaveDto {
     private String content;
     private Member member;
     private Topic topic;
+    private String accessToken;
 }

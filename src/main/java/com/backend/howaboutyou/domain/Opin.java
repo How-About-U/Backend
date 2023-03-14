@@ -50,4 +50,8 @@ public class Opin extends BaseTimeEntity {
                 .topic(saveDto.getTopic())
                 .build();
     }
+
+    public void update(String content) {
+        this.content = content;
+    }
 }

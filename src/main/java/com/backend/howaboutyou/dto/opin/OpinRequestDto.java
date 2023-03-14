@@ -13,4 +13,5 @@ public class OpinRequestDto {
     private Boolean vote;
     private String content;
     private String token;
+    private Long opinId;
 }
