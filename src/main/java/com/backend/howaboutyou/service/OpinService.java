@@ -35,7 +35,7 @@ public class OpinService {
         // 임시 opin정보 가져오기
         Opin opin = opinRepository.findById(requestDto.getOpinId()).get();
 
-        opin.update(requestDto.getVote(), requestDto.getContent());
+        opin.update(requestDto.getContent());
         return new OpinResponseDto().builder()
                 .content(opin.getContent())
                 .topic_title(opin.getTopic().getTitle())
@@ -43,6 +43,10 @@ public class OpinService {
                 .user_name(member.getUsername())
                 .vote(opin.getVote())
                 .build();
+    }
+
+    public void delete(OpinRequestDto requestDto) {
+        opinRepository.deleteById(requestDto.getOpinId());
     }
 
     @Transactional(readOnly = true)

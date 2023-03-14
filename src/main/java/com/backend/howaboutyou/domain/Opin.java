@@ -51,8 +51,7 @@ public class Opin extends BaseTimeEntity {
                 .build();
     }
 
-    public void update(boolean vote, String content) {
-        this.vote = vote;
+    public void update(String content) {
         this.content = content;
     }
 }

@@ -63,6 +63,12 @@ public class OpinController {
         return ResponseEntity.ok().body(opinService.update(requestDto));
     }
 
+    @DeleteMapping("/delete")
+    public ResponseEntity<Object> opinDelete(@RequestBody OpinRequestDto requestDto) {
+        opinService.delete(requestDto);
+        return ResponseEntity.ok().body("삭제가 완료되었습니다.");
+    }
+
     @GetMapping("/list")
     public ResponseEntity<?> opinListSearch(@Nullable @RequestParam Boolean searchCond) {
         log.info("OpinController.opinSearch");
